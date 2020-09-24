@@ -6,8 +6,9 @@ import cn.hutool.extra.tokenizer.TokenizerEngine;
 import cn.hutool.extra.tokenizer.Word;
 import cn.hutool.extra.tokenizer.engine.hanlp.HanLPEngine;
 
-
 import java.util.*;
+
+import com.kaola.exception.FileException;
 
 /**
  * @ClassNameTokenizerUtil
@@ -18,23 +19,17 @@ import java.util.*;
  **/
 public class TokenizerUtil {
 
-    public static void main(String[] args) {
-        String path = "D:\\作业\\软工作业\\orig.txt";
-        String path2 = "D:\\作业\\软工作业\\orig_0.8_add.txt";
-        Map<String, List<Integer>> stringListMap = TokenizerUtil.CountWord(path);
-        Map<String, List<Integer>> stringListMap2 = TokenizerUtil.CountWord(path2);
-        Double aDouble = TokenizerUtil.CountCos(stringListMap, stringListMap2);
-
-        System.out.println(aDouble);
-
-    }
     public static Map<String, List<Integer>> CountWord(String path){
         Map<String, List<Integer>> resMap = new TreeMap<String,List<Integer>>();
 
         TokenizerEngine engine = new HanLPEngine();
-        FileUtil fileUtil = new FileUtil();
-        String s = fileUtil.readFile(path);
-        FileReader fileReader = new FileReader(path);
+        try {
+            String s = FileUtil.readFile(path);
+        }catch (FileException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+        FileReader fileReader = new FileReader(path,"UTF-8");
         String text = fileReader.readString();
         Result result = engine.parse(text);
         //解析文本
@@ -69,6 +64,11 @@ public class TokenizerUtil {
      * @param map2 已经计算好词频的抄袭文
      */
     public static Double CountCos(Map<String, List<Integer>> map1,Map<String, List<Integer>> map2){
+        if(map1==null||map2==null){
+            return null;
+        }
+
+
         //统计计算了多少个词
         int count = 0;
         //最后的结果
