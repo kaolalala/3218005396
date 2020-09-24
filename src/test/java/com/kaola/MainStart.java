@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * @ClassNamemain
  * @Description
- * @Author Kaola
+ * @Author Free
  * @Date2020/9/22 11:39
  * @Version V1.0
  **/
@@ -100,7 +100,7 @@ public class MainStart {
     }
     @Test
     public void DIYpointTest(){
-        String path = "D:\\作业\\软工作业\\3.txt";
+        String path = "D:\\作业\\软工作业\\1000.txt";
         String path2 = "D:\\作业\\软工作业\\4.txt";
         Map<String, List<Integer>> stringListMap = TokenizerUtil.CountWord(path);
         Map<String, List<Integer>> stringListMap2 = TokenizerUtil.CountWord(path2);
